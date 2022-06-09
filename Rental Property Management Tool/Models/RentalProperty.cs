@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rental_Property_Management_Tool.Enum;
+using System;
 using System.Collections.Generic;
 
 namespace Rental_Property_Management_Tool.Models
@@ -10,7 +11,7 @@ namespace Rental_Property_Management_Tool.Models
         public double SquaresMeters { get; set; }
         public string Address { get; set; }
         public bool Rented { get; set; }
-        public TypeOfRentalProperty Type { get; set; }
+        public TypesOfRentalProperty Type { get; set; }
         public DateTime RentalStart { get; set; }
         public DateTime RentalEnd { get; set; }
         public List<OverheadCost> Costs { get; set; }
