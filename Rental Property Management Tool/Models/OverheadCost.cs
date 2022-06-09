@@ -2,7 +2,7 @@
 
 namespace Rental_Property_Management_Tool.Models
 {
-    public class OverheadCosts
+    public class OverheadCost
     {
         public int Id { get; set; }
         public string Name { get; set; }

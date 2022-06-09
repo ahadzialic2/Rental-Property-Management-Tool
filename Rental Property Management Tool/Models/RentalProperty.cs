@@ -13,7 +13,7 @@ namespace Rental_Property_Management_Tool.Models
         public TypeOfRentalProperty Type { get; set; }
         public DateTime RentalStart { get; set; }
         public DateTime RentalEnd { get; set; }
-        public List<OverheadCosts> Costs { get; set; }
+        public List<OverheadCost> Costs { get; set; }
         public User User { get; set; }
         public Person Persons { get; set; }
     }
