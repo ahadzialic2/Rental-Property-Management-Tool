@@ -22,12 +22,22 @@ namespace Rental_Property_Management_Tool.Services.OverheadCostService
             throw new System.NotImplementedException();
         }
 
+        public Task<ServiceResponse<List<GetOverheadCostDto>>> DeleteOverheadCost(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public Task<ServiceResponse<List<GetOverheadCostDto>>> GetAllOverheadCosts()
         {
             throw new System.NotImplementedException();
         }
 
         public Task<ServiceResponse<GetOverheadCostDto>> GetOverheadCostById(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<ServiceResponse<GetOverheadCostDto>> UpdateOverheadCost(UpdateOverheadCostDto updatedOverheadCost)
         {
             throw new System.NotImplementedException();
         }
