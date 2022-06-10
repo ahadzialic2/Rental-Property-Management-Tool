@@ -8,7 +8,7 @@ namespace Rental_Property_Management_Tool.Services
     public interface IRentalPropertyService
     {
         Task<ServiceResponse<List<GetRentalPropertyDto>>> GetAllRentalProperties();
-        Task<ServiceResponse<GetRentalPropertyDto>> GetRentalPropertiesById(int id);
+        Task<ServiceResponse<GetRentalPropertyDto>> GetRentalPropertyById(int id);
         Task<ServiceResponse<List<GetRentalPropertyDto>>> AddRentalProperty(AddRentalPropertyDto newRentalProperty);
         Task<ServiceResponse<GetRentalPropertyDto>> UpdateRentalProperty(UpdateRentalPropertyDto updatedRentalProperty);
 

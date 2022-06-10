@@ -20,7 +20,7 @@ namespace Rental_Property_Management_Tool.Services.RentalPropertyService
             throw new System.NotImplementedException();
         }
 
-        public Task<ServiceResponse<GetRentalPropertyDto>> GetRentalPropertiesById(int id)
+        public Task<ServiceResponse<GetRentalPropertyDto>> GetRentalPropertyById(int id)
         {
             throw new System.NotImplementedException();
         }
