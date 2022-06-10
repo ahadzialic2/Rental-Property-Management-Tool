@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +15,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Rental_Property_Management_Tool.Data;
+using Rental_Property_Management_Tool.Services;
+using Rental_Property_Management_Tool.Services.RentalPropertyService;
 
 namespace Rental_Property_Management_Tool
 {
@@ -28,6 +32,9 @@ namespace Rental_Property_Management_Tool
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(typeof(Startup));
+            services.AddControllers();
+            services.AddMvc();
             services.AddDbContext<DataContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
@@ -35,6 +42,9 @@ namespace Rental_Property_Management_Tool
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Rental_Property_Management_Tool", Version = "v1" });
             });
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+           
+            services.AddScoped<IRentalPropertyService, RentalPropertyService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
