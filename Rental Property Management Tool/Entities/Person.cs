@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Rental_Property_Management_Tool.Models
+namespace Rental_Property_Management_Tool.Entities
 {
     public class Person
     {

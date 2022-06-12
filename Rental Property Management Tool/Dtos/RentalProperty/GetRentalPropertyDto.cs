@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Rental_Property_Management_Tool.Dtos.OverheadCost;
 using Rental_Property_Management_Tool.Dtos.Person;
 using Rental_Property_Management_Tool.Enum;
-using Rental_Property_Management_Tool.Models;
 
 namespace Rental_Property_Management_Tool.Dtos.RentalProperty
 {

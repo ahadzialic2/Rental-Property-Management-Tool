@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Rental_Property_Management_Tool.Models;
+using Rental_Property_Management_Tool.Entities;
 
 namespace Rental_Property_Management_Tool.Data
 {

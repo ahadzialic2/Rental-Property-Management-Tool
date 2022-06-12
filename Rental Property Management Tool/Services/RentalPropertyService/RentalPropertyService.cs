@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Rental_Property_Management_Tool.Data;
 using Rental_Property_Management_Tool.Dtos.RentalProperty;
-using Rental_Property_Management_Tool.Models;
+using Rental_Property_Management_Tool.ServiceResponse;
 
 namespace Rental_Property_Management_Tool.Services.RentalPropertyService
 {

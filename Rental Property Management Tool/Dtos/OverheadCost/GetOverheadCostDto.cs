@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Rental_Property_Management_Tool.Dtos.RentalProperty;
-using Rental_Property_Management_Tool.Models;
 
 namespace Rental_Property_Management_Tool.Dtos.OverheadCost
 {

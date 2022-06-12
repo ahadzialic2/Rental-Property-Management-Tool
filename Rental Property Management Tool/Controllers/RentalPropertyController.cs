@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Rental_Property_Management_Tool.Data;
 using Rental_Property_Management_Tool.Dtos.RentalProperty;
-using Rental_Property_Management_Tool.Models;
+using Rental_Property_Management_Tool.ServiceResponse;
 using Rental_Property_Management_Tool.Services;
 
 namespace Rental_Property_Management_Tool.Controllers

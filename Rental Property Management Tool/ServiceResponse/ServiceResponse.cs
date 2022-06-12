@@ -1,4 +1,4 @@
-﻿namespace Rental_Property_Management_Tool.Models
+﻿namespace Rental_Property_Management_Tool.ServiceResponse
 {
     public class ServiceResponse<T>
     {
