@@ -55,6 +55,16 @@ namespace Rental_Property_Management_Tool.Controllers
             }
             return Ok(response);
         }
+        [HttpPut("{rentalPropertyId}/{personName}")]
+        public async Task<ActionResult<ServiceResponse<GetRentalPropertyDto>>> RentPropertyToPerson(int rentalPropertyId, string personName)
+        {
+            var response = await _rentalPropertyService.RentPropertyToPerson(rentalPropertyId, personName);
+            if (response.Data == null)
+            {
+                return NotFound(response);
+            }
+            return Ok(response);
+        }
         [HttpDelete("{id}")]
         public async Task<ActionResult<ServiceResponse<GetRentalPropertyDto>>> Delete(int id)
         {

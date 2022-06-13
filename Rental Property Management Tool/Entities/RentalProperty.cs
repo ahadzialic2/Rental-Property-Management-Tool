@@ -12,10 +12,10 @@ namespace Rental_Property_Management_Tool.Entities
         public string Address { get; set; }
         public bool Rented { get; set; }
         public TypesOfRentalProperty Type { get; set; }
-        public DateTime RentalStart { get; set; }
-        public DateTime RentalEnd { get; set; }
+        public DateTime? RentalStart { get; set; }
+        public DateTime? RentalEnd { get; set; }
         public List<OverheadCost> Costs { get; set; }
-        public User User { get; set; }
+        public User? User { get; set; }
         public Person Persons { get; set; }
     }
 }
