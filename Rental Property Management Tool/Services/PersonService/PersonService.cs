@@ -1,8 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Rental_Property_Management_Tool.Data;
 using Rental_Property_Management_Tool.Dtos.Person;
+using Rental_Property_Management_Tool.Entities;
 using Rental_Property_Management_Tool.ServiceResponse;
 
 namespace Rental_Property_Management_Tool.Services.PersonService
@@ -17,29 +21,66 @@ namespace Rental_Property_Management_Tool.Services.PersonService
             _mapper = mapper;
             _context = context;
         }
-        public Task<ServiceResponse<List<GetPersonDto>>> AddPerson(AddPersonDto newPerson)
+        public async Task<ServiceResponse<List<GetPersonDto>>> AddPerson(AddPersonDto newPerson)
         {
-            throw new System.NotImplementedException();
+            var serviceResponse = new ServiceResponse<List<GetPersonDto>>();
+            Person person = _mapper.Map<Person>(newPerson);
+            _context.Persons.Add(person);
+            await _context.SaveChangesAsync();
+            serviceResponse.Data = await _context.Persons.Select(p => _mapper.Map<GetPersonDto>(p)).ToListAsync();
+            return serviceResponse;
         }
-
-        public Task<ServiceResponse<List<GetPersonDto>>> DeletePerson(int id)
+        public async Task<ServiceResponse<List<GetPersonDto>>> DeletePerson(int id)
         {
-            throw new System.NotImplementedException();
+            var serviceResponse = new ServiceResponse<List<GetPersonDto>>();
+            try
+            {
+                Person person = await _context.Persons.FirstOrDefaultAsync(p => p.Id == id);
+                _context.Persons.Remove(person);
+                await _context.SaveChangesAsync();
+                serviceResponse.Data = _context.Persons.Select(p => _mapper.Map<GetPersonDto>(p)).ToList();
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = ex.Message;
+            }
+            return serviceResponse;
         }
-
-        public Task<ServiceResponse<List<GetPersonDto>>> GetAllPersons()
+        public async Task<ServiceResponse<List<GetPersonDto>>> GetAllPersons()
         {
-            throw new System.NotImplementedException();
+            var serviceResponse = new ServiceResponse<List<GetPersonDto>>();
+            var dbPersons = await _context.Persons.ToListAsync();
+            serviceResponse.Data = dbPersons.Select(p => _mapper.Map<GetPersonDto>(p)).ToList();
+            return serviceResponse;
         }
-
-        public Task<ServiceResponse<GetPersonDto>> GetPersonById(int id)
+        public async Task<ServiceResponse<GetPersonDto>> GetPersonById(int id)
         {
-            throw new System.NotImplementedException();
+            var serviceResponse = new ServiceResponse<GetPersonDto>();
+            var dbPersons = await _context.Persons.FirstOrDefaultAsync(p => p.Id == id);
+            serviceResponse.Data = _mapper.Map<GetPersonDto>(dbPersons);
+            return serviceResponse;
         }
-
-        public Task<ServiceResponse<GetPersonDto>> UpdatePerson(UpdatePersonDto updatedPerson)
+        public async Task<ServiceResponse<GetPersonDto>> UpdatePerson(UpdatePersonDto updatedPerson)
         {
-            throw new System.NotImplementedException();
+            var serviceResponse = new ServiceResponse<GetPersonDto>();
+            try
+            {
+                Person person = await _context.Persons.FirstOrDefaultAsync(p => p.Id == updatedPerson.Id);
+                person.Name = updatedPerson.Name;
+                person.Contact = updatedPerson.Contact;
+                person.LegalEntity = updatedPerson.LegalEntity;
+                
+
+                await _context.SaveChangesAsync();
+                serviceResponse.Data = _mapper.Map<GetPersonDto>(person);
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = ex.Message;
+            }
+            return serviceResponse;
         }
     }
 }
