@@ -11,6 +11,5 @@ namespace Rental_Property_Management_Tool.Dtos.RentalProperty
         public string Address { get; set; }
         public bool Rented { get; set; }
         public TypesOfRentalProperty Type { get; set; }
-        //public GetPersonDto Persons { get; set; }
     }
 }

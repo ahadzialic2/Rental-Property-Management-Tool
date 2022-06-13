@@ -10,5 +10,6 @@ namespace Rental_Property_Management_Tool.Dtos.Person
         public string Contact { get; set; }
         public bool LegalEntity { get; set; }
         public List<GetRentalPropertyDto> RentedProperties { get; set; }
+        public bool isDeleted { get; set; }
     }
 }

@@ -18,5 +18,6 @@ namespace Rental_Property_Management_Tool.Dtos.RentalProperty
         public DateTime? RentalEnd { get; set; }
         public List<GetOverheadCostDto> Costs { get; set; }
         public GetPersonDto Persons { get; set; }
+        public bool isDeleted { get; set; }
     }
 }
