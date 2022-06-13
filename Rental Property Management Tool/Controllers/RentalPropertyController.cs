@@ -25,15 +25,7 @@ namespace Rental_Property_Management_Tool.Controllers
         {
             return Ok(await _rentalPropertyService.GetAllRentalProperties());
         }
-        [HttpGet("[action]")]
-        public IActionResult PagingRentalProperties(int? pageNumber, int? pageSize)
-        {
-            var rentalProperties = _context.RentalProperties;
-            var currentPageNumber = pageNumber ?? 0;
-            var currentPageSize = pageSize ?? 0;
-            return Ok(rentalProperties.Skip((currentPageNumber - 1) * currentPageSize).Take(currentPageNumber));
-
-        }
+      
         [HttpGet("{id}")]
         public async Task<ActionResult<ServiceResponse<GetRentalPropertyDto>>> GetSingle(int id)
         {
