@@ -8,21 +8,6 @@ namespace Rental_Property_Management_Tool.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "OverheadCosts",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Amount = table.Column<double>(type: "float", nullable: false),
-                    CostDetails = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_OverheadCosts", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Persons",
                 columns: table => new
                 {
@@ -30,7 +15,8 @@ namespace Rental_Property_Management_Tool.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Contact = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LegalEntity = table.Column<bool>(type: "bit", nullable: false)
+                    LegalEntity = table.Column<bool>(type: "bit", nullable: false),
+                    isDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -63,10 +49,11 @@ namespace Rental_Property_Management_Tool.Migrations
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Rented = table.Column<bool>(type: "bit", nullable: false),
                     Type = table.Column<int>(type: "int", nullable: false),
-                    RentalStart = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    RentalEnd = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    RentalStart = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    RentalEnd = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UserId = table.Column<int>(type: "int", nullable: true),
-                    PersonsId = table.Column<int>(type: "int", nullable: true)
+                    PersonsId = table.Column<int>(type: "int", nullable: true),
+                    isDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -86,33 +73,32 @@ namespace Rental_Property_Management_Tool.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "OverheadCostRentalProperty",
+                name: "OverheadCosts",
                 columns: table => new
                 {
-                    CostsId = table.Column<int>(type: "int", nullable: false),
-                    RentalPropertiesId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Amount = table.Column<double>(type: "float", nullable: false),
+                    Currency = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    RentalPropertyId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OverheadCostRentalProperty", x => new { x.CostsId, x.RentalPropertiesId });
+                    table.PrimaryKey("PK_OverheadCosts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OverheadCostRentalProperty_OverheadCosts_CostsId",
-                        column: x => x.CostsId,
-                        principalTable: "OverheadCosts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_OverheadCostRentalProperty_RentalProperties_RentalPropertiesId",
-                        column: x => x.RentalPropertiesId,
+                        name: "FK_OverheadCosts_RentalProperties_RentalPropertyId",
+                        column: x => x.RentalPropertyId,
                         principalTable: "RentalProperties",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_OverheadCostRentalProperty_RentalPropertiesId",
-                table: "OverheadCostRentalProperty",
-                column: "RentalPropertiesId");
+                name: "IX_OverheadCosts_RentalPropertyId",
+                table: "OverheadCosts",
+                column: "RentalPropertyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RentalProperties_PersonsId",
@@ -127,9 +113,6 @@ namespace Rental_Property_Management_Tool.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "OverheadCostRentalProperty");
-
             migrationBuilder.DropTable(
                 name: "OverheadCosts");
 
