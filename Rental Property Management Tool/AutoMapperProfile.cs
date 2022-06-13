@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Rental_Property_Management_Tool.Dtos.Person;
 using Rental_Property_Management_Tool.Dtos.RentalProperty;
 using Rental_Property_Management_Tool.Entities;
 
@@ -9,10 +10,14 @@ namespace Rental_Property_Management_Tool
         public AutoMapperProfile()
         {
             CreateMap<RentalProperty, GetRentalPropertyDto>();
+            CreateMap<RentalProperty, GetRentalPropertyAndPersonRentedDto>();
+
             CreateMap<AddRentalPropertyDto, RentalProperty>();
-            /*CreateMap<Weapon, GetWeaponDto>();
-            CreateMap<Skill, GetSkillDto>();
-            CreateMap<Character, HighscoreDto>();*/
+            CreateMap<Person, GetPersonDto>();
+            CreateMap<GetPersonDto, Person>();
+
+            //CreateMap<Skill, GetSkillDto>();
+            //CreateMap<Character, HighscoreDto>();*/
         }
     }
 }
