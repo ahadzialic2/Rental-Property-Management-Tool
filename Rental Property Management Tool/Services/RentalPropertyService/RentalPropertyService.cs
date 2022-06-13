@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -7,12 +8,15 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Rental_Property_Management_Tool.Data;
+using Rental_Property_Management_Tool.Dtos.Person;
 using Rental_Property_Management_Tool.Dtos.RentalProperty;
+using Rental_Property_Management_Tool.Entities;
 using Rental_Property_Management_Tool.ServiceResponse;
 
 namespace Rental_Property_Management_Tool.Services.RentalPropertyService
 {
-    public class RentalPropertyService : IRentalPropertyService {
+    public class RentalPropertyService : IRentalPropertyService
+    {
         private readonly IMapper _mapper;
         private readonly DataContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -26,9 +30,9 @@ namespace Rental_Property_Management_Tool.Services.RentalPropertyService
         //private int GetUserId() => int.Parse(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
         public Task<ServiceResponse<List<GetRentalPropertyDto>>> GetAllRentalProperties()
         {
-           
+
             throw new System.NotImplementedException();
-           
+
         }
 
         public Task<ServiceResponse<GetRentalPropertyDto>> GetRentalPropertyById(int id)
@@ -50,8 +54,36 @@ namespace Rental_Property_Management_Tool.Services.RentalPropertyService
         {
             throw new System.NotImplementedException();
         }
+        public async Task<ServiceResponse<GetRentalPropertyAndPersonRentedDto>> RentPropertyToPerson(int rentalPropertyId, string personName)
+        {
+            var serviceResponse = new ServiceResponse<GetRentalPropertyAndPersonRentedDto>();
+            try
+            {
+                 Person person = await _context.Persons.FirstOrDefaultAsync(p => p.Name == personName);
+                
+                if(person.Name != personName)
+                {
+                    serviceResponse.Success = false;
+                    serviceResponse.Message = "Person with given name does not exist.";
+                    return serviceResponse;
+                }
 
-
-
+                RentalProperty rentalProperty = await _context.RentalProperties
+                    .FirstOrDefaultAsync(rp => rp.Id == rentalPropertyId && rp.Rented == false);
+                rentalProperty.Persons = person;
+                rentalProperty.Rented = true;
+                await _context.SaveChangesAsync();
+                serviceResponse.Success = true;
+                serviceResponse.Data = _mapper.Map<GetRentalPropertyAndPersonRentedDto>(rentalProperty);
+                return serviceResponse;
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = ex.Message;
+                return serviceResponse;
+            }
+        }
     }
+
 }

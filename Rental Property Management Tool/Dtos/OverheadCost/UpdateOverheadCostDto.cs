@@ -9,6 +9,6 @@ namespace Rental_Property_Management_Tool.Dtos.OverheadCost
         public string Name { get; set; }
         public double Amount { get; set; }
         public string CostDetails { get; set; }
-        public List<GetRentalPropertyDto> RentalProperties { get; set; }
+        public GetRentalPropertyDto RentalProperty { get; set; }
     }
 }
