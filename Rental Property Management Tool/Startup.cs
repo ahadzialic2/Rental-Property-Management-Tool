@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
@@ -45,6 +46,11 @@ namespace Rental_Property_Management_Tool
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
            
             services.AddScoped<IRentalPropertyService, RentalPropertyService>();
+          /*  services.AddMvc()
+ .AddJsonOptions(o => {
+     o.JsonSerializerOptions
+        .ReferenceHandler = ReferenceHandler.Preserve;
+           });*/
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
