@@ -15,7 +15,7 @@ namespace Rental_Property_Management_Tool
             CreateMap<AddRentalPropertyDto, RentalProperty>();
             CreateMap<Person, GetPersonDto>();
             CreateMap<GetPersonDto, Person>();
-
+            CreateMap<AddPersonDto,Person>();   
             //CreateMap<Skill, GetSkillDto>();
             //CreateMap<Character, HighscoreDto>();*/
         }

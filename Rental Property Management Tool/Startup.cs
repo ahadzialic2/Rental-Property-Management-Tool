@@ -17,6 +17,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Rental_Property_Management_Tool.Data;
 using Rental_Property_Management_Tool.Services;
+using Rental_Property_Management_Tool.Services.PersonService;
 using Rental_Property_Management_Tool.Services.RentalPropertyService;
 
 namespace Rental_Property_Management_Tool
@@ -46,6 +47,7 @@ namespace Rental_Property_Management_Tool
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
            
             services.AddScoped<IRentalPropertyService, RentalPropertyService>();
+            services.AddScoped<IPersonService, PersonService>();
           /*  services.AddMvc()
  .AddJsonOptions(o => {
      o.JsonSerializerOptions
