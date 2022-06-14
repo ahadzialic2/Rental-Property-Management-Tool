@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Rental_Property_Management_Tool.Dtos.RentalProperty;
+using System;
 
 namespace Rental_Property_Management_Tool.Dtos.OverheadCost
 {

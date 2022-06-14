@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Rental_Property_Management_Tool.Data;
 using Rental_Property_Management_Tool.Dtos.OverheadCost;
+using Rental_Property_Management_Tool.Entities;
 using Rental_Property_Management_Tool.ServiceResponse;
 
 namespace Rental_Property_Management_Tool.Services.OverheadCostService
@@ -17,9 +20,14 @@ namespace Rental_Property_Management_Tool.Services.OverheadCostService
             _mapper = mapper;
             _context = context;
         }
-        public Task<ServiceResponse<List<GetOverheadCostDto>>> AddOverheadCost(AddOverheadCostDto newOverheadCost)
+        public async Task<ServiceResponse<List<GetOverheadCostDto>>> AddOverheadCost(AddOverheadCostDto newOverheadCost)
         {
-            throw new System.NotImplementedException();
+            var serviceResponse = new ServiceResponse<List<GetOverheadCostDto>>();
+           OverheadCost overheadCost  = _mapper.Map<OverheadCost>(newOverheadCost);
+            _context.OverheadCosts.Add(overheadCost);
+            await _context.SaveChangesAsync();
+            serviceResponse.Data = await _context.OverheadCosts.Select(r => _mapper.Map<GetOverheadCostDto>(r)).ToListAsync();
+            return serviceResponse;
         }
 
         public Task<ServiceResponse<List<GetOverheadCostDto>>> DeleteOverheadCost(int id)
@@ -32,9 +40,12 @@ namespace Rental_Property_Management_Tool.Services.OverheadCostService
             throw new System.NotImplementedException();
         }
 
-        public Task<ServiceResponse<GetOverheadCostDto>> GetOverheadCostById(int id)
+        public async Task<ServiceResponse<GetOverheadCostDto>> GetOverheadCostById(int id)
         {
-            throw new System.NotImplementedException();
+            var serviceResponse = new ServiceResponse<GetOverheadCostDto>();
+            var dbOverheadCosts = await _context.OverheadCosts.FirstOrDefaultAsync(c => c.Id == id);
+            serviceResponse.Data = _mapper.Map<GetOverheadCostDto>(dbOverheadCosts);
+            return serviceResponse;
         }
 
         public Task<ServiceResponse<GetOverheadCostDto>> UpdateOverheadCost(UpdateOverheadCostDto updatedOverheadCost)
