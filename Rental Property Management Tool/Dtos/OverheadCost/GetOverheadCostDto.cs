@@ -11,6 +11,6 @@ namespace Rental_Property_Management_Tool.Dtos.OverheadCost
         public double Amount { get; set; }
         public string Currency { get; set; }
         public DateTime? Date { get; set; }
-        public GetRentalPropertyDto RentalProperty { get; set; }
+        //public GetRentalPropertyDto RentalProperty { get; set; }
     }
 }

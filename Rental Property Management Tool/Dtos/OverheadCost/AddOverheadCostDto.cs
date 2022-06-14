@@ -1,4 +1,5 @@
 ﻿using System;
+using Rental_Property_Management_Tool.Dtos.RentalProperty;
 
 namespace Rental_Property_Management_Tool.Dtos.OverheadCost
 {
@@ -8,5 +9,6 @@ namespace Rental_Property_Management_Tool.Dtos.OverheadCost
         public double Amount { get; set; }
         public string Currency { get; set; }
         public DateTime? Date { get; set; }
+        public int RentalPropertyId { get; set; }
     }
 }
