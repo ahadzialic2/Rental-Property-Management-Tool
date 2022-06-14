@@ -70,7 +70,7 @@ namespace Rental_Property_Management_Tool.Services.PersonService
                 person.Name = updatedPerson.Name;
                 person.Contact = updatedPerson.Contact;
                 person.LegalEntity = updatedPerson.LegalEntity;
-                
+             
 
                 await _context.SaveChangesAsync();
                 serviceResponse.Data = _mapper.Map<GetPersonDto>(person);

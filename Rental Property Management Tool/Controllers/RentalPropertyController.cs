@@ -21,9 +21,9 @@ namespace Rental_Property_Management_Tool.Controllers
             _context = context;
         }
         [HttpGet("GetAll")]
-        public async Task<ActionResult<ServiceResponse<List<GetRentalPropertyDto>>>> Get()
+        public async Task<ActionResult<ServiceResponse<List<GetRentalPropertyDto>>>> Get(int skip)
         {
-            return Ok(await _rentalPropertyService.GetAllRentalProperties());
+            return Ok(await _rentalPropertyService.GetAllRentalProperties(skip));
         }
       
         [HttpGet("{id}")]
