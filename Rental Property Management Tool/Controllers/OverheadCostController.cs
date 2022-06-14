@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Rental_Property_Management_Tool.Dtos.OverheadCost;
 using Rental_Property_Management_Tool.ServiceResponse;
@@ -7,6 +8,7 @@ using Rental_Property_Management_Tool.Services.OverheadCostService;
 
 namespace Rental_Property_Management_Tool.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class OverheadCostController : ControllerBase
