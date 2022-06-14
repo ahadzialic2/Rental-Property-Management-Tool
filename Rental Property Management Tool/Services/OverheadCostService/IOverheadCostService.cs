@@ -9,7 +9,7 @@ namespace Rental_Property_Management_Tool.Services.OverheadCostService
     {
         Task<ServiceResponse<List<GetOverheadCostDto>>> GetAllOverheadCosts();
         Task<ServiceResponse<GetOverheadCostDto>> GetOverheadCostById(int id);
-        Task<ServiceResponse<List<GetOverheadCostDto>>> AddOverheadCost(AddOverheadCostDto newOverheadCost);
+        Task<ServiceResponse<GetOverheadCostDto>> AddOverheadCost(AddOverheadCostDto newOverheadCost, string propertyName);
         Task<ServiceResponse<GetOverheadCostDto>> UpdateOverheadCost(UpdateOverheadCostDto updatedOverheadCost);
         Task<ServiceResponse<List<GetOverheadCostDto>>> DeleteOverheadCost(int id);
     }

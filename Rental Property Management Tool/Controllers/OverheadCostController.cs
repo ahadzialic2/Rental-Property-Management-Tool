@@ -27,11 +27,12 @@ namespace Rental_Property_Management_Tool.Controllers
             return Ok(await _overheadCostService.GetOverheadCostById(id));
         }
 
-        [HttpPost]
-        public async Task<ActionResult<ServiceResponse<List<GetOverheadCostDto>>>> AddOverheadCost(AddOverheadCostDto newOverheadCost)
+        [HttpPost("{propertyName}")]
+        public async Task<ActionResult<ServiceResponse<GetOverheadCostDto>>> AddOverheadCost(AddOverheadCostDto newOverheadCost, string propertyName)
         {
-            return Ok(await _overheadCostService.AddOverheadCost(newOverheadCost));
+            return Ok(await _overheadCostService.AddOverheadCost(newOverheadCost, propertyName));
         }
+
         [HttpPut]
         public async Task<ActionResult<ServiceResponse<GetOverheadCostDto>>> UpdateOverheadCost(UpdateOverheadCostDto updatedOverheadCost)
         {
