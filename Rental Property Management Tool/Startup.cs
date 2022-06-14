@@ -16,7 +16,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Rental_Property_Management_Tool.Data;
+using Rental_Property_Management_Tool.Entities;
 using Rental_Property_Management_Tool.Services;
+using Rental_Property_Management_Tool.Services.OverheadCostService;
 using Rental_Property_Management_Tool.Services.PersonService;
 using Rental_Property_Management_Tool.Services.RentalPropertyService;
 
@@ -48,11 +50,13 @@ namespace Rental_Property_Management_Tool
            
             services.AddScoped<IRentalPropertyService, RentalPropertyService>();
             services.AddScoped<IPersonService, PersonService>();
-          /*  services.AddMvc()
- .AddJsonOptions(o => {
-     o.JsonSerializerOptions
-        .ReferenceHandler = ReferenceHandler.Preserve;
-           });*/
+            services.AddScoped<IOverheadCostService, OverheadCostService>();
+
+            /*  services.AddMvc()
+   .AddJsonOptions(o => {
+       o.JsonSerializerOptions
+          .ReferenceHandler = ReferenceHandler.Preserve;
+             });*/
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
