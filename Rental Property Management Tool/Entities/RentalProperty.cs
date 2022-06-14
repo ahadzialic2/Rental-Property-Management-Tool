@@ -17,6 +17,6 @@ namespace Rental_Property_Management_Tool.Entities
         public List<OverheadCost> Costs { get; set; }
         public User? User { get; set; }
         public Person Persons { get; set; }
-        public bool isDeleted { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }
