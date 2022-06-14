@@ -49,11 +49,6 @@ namespace Rental_Property_Management_Tool.Services.OverheadCostService
                 return serviceResponse;
             }
         }
-        public Task<ServiceResponse<GetOverheadCostDto>> AddOverheadCostByRentalPropertyId(AddOverheadCostByIdDto newOverheadCostByRentalPropertyId, string propertyName)
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<ServiceResponse<List<GetOverheadCostDto>>> DeleteOverheadCost(int id)
         {
             throw new System.NotImplementedException();
