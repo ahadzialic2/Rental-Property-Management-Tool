@@ -36,7 +36,7 @@ namespace Rental_Property_Management_Tool.Services.PersonService
             try
             {
                 Person person = await _context.Persons.FirstOrDefaultAsync(p => p.Id == id);
-                _context.Persons.Remove(person);
+                person.IsDeleted = true;
                 await _context.SaveChangesAsync();
                 serviceResponse.Data = _context.Persons.Select(p => _mapper.Map<GetPersonDto>(p)).ToList();
             }

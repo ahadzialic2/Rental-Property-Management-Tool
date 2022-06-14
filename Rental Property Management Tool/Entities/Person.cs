@@ -9,6 +9,6 @@ namespace Rental_Property_Management_Tool.Entities
         public string Contact { get; set; }
         public bool LegalEntity { get; set; }
         public List<RentalProperty> RentedProperties { get; set; }
-        public bool isDeleted { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

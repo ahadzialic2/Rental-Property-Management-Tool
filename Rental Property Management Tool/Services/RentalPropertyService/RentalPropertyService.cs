@@ -95,7 +95,6 @@ namespace Rental_Property_Management_Tool.Services.RentalPropertyService
             {
                 RentalProperty rentalProperty = await _context.RentalProperties.FirstOrDefaultAsync(r => r.Id == id);
                 rentalProperty.IsDeleted = true;
-                //_context.RentalProperties.Remove(rentalProperty);
                 await _context.SaveChangesAsync();
                 serviceResponse.Data = _context.RentalProperties.Select(r => _mapper.Map<GetRentalPropertyDto>(r)).ToList();
             }
