@@ -1,4 +1,5 @@
 ﻿using Rental_Property_Management_Tool.Enum;
+using System;
 
 namespace Rental_Property_Management_Tool.Dtos.RentalProperty
 {
@@ -8,5 +9,7 @@ namespace Rental_Property_Management_Tool.Dtos.RentalProperty
         public double SquaresMeters { get; set; }
         public string Address { get; set; }
         public TypesOfRentalProperty Type { get; set; }
+        public DateTime? RentalStart { get; set; }
+        public DateTime? RentalEnd { get; set; }
     }
 }
