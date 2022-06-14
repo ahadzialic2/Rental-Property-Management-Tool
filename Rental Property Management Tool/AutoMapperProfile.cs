@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Rental_Property_Management_Tool.Dtos.OverheadCost;
 using Rental_Property_Management_Tool.Dtos.Person;
 using Rental_Property_Management_Tool.Dtos.RentalProperty;
 using Rental_Property_Management_Tool.Entities;
@@ -15,7 +16,10 @@ namespace Rental_Property_Management_Tool
             CreateMap<AddRentalPropertyDto, RentalProperty>();
             CreateMap<Person, GetPersonDto>();
             CreateMap<GetPersonDto, Person>();
-            CreateMap<AddPersonDto,Person>();   
+            CreateMap<AddPersonDto,Person>();
+            CreateMap<OverheadCost, GetOverheadCostDto>();
+            CreateMap<AddOverheadCostDto, OverheadCost>();
+
             //CreateMap<Skill, GetSkillDto>();
             //CreateMap<Character, HighscoreDto>();*/
         }
