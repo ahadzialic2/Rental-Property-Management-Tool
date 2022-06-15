@@ -10,8 +10,8 @@ using Rental_Property_Management_Tool.Data;
 namespace Rental_Property_Management_Tool.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220614114056_OverheadCost")]
-    partial class OverheadCost
+    [Migration("20220615081314_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -60,14 +60,14 @@ namespace Rental_Property_Management_Tool.Migrations
                     b.Property<string>("Contact")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("LegalEntity")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("isDeleted")
-                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -83,6 +83,9 @@ namespace Rental_Property_Management_Tool.Migrations
 
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -107,9 +110,6 @@ namespace Rental_Property_Management_Tool.Migrations
 
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
-
-                    b.Property<bool>("isDeleted")
-                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 

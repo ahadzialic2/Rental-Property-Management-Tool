@@ -16,7 +16,7 @@ namespace Rental_Property_Management_Tool.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Contact = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LegalEntity = table.Column<bool>(type: "bit", nullable: false),
-                    isDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -53,7 +53,7 @@ namespace Rental_Property_Management_Tool.Migrations
                     RentalEnd = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UserId = table.Column<int>(type: "int", nullable: true),
                     PersonsId = table.Column<int>(type: "int", nullable: true),
-                    isDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -82,7 +82,7 @@ namespace Rental_Property_Management_Tool.Migrations
                     Amount = table.Column<double>(type: "float", nullable: false),
                     Currency = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    RentalPropertyId = table.Column<int>(type: "int", nullable: true)
+                    RentalPropertyId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -92,7 +92,7 @@ namespace Rental_Property_Management_Tool.Migrations
                         column: x => x.RentalPropertyId,
                         principalTable: "RentalProperties",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
