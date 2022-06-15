@@ -1,18 +1,15 @@
-﻿
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using Rental_Property_Management_Tool.Data;
+using Rental_Property_Management_Tool.Dtos.RentalProperty;
+using Rental_Property_Management_Tool.Entities;
+using Rental_Property_Management_Tool.Helper;
+using Rental_Property_Management_Tool.ServiceResponse;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Rental_Property_Management_Tool.Data;
-using Rental_Property_Management_Tool.Dtos.Person;
-using Rental_Property_Management_Tool.Dtos.RentalProperty;
-using Rental_Property_Management_Tool.Entities;
-using Rental_Property_Management_Tool.ServiceResponse;
 
 namespace Rental_Property_Management_Tool.Services.RentalPropertyService
 {
@@ -30,12 +27,13 @@ namespace Rental_Property_Management_Tool.Services.RentalPropertyService
         }
 
 
-        public async Task<ServiceResponse<List<GetRentalPropertyDto>>> GetAllRentalProperties()
+        public async Task<PaginationModel<List<GetRentalPropertyDto>>> GetAllRentalProperties(int skip)
         {
-            var serviceResponse = new ServiceResponse<List<GetRentalPropertyDto>>();
-            var dbRentalProperties = await _context.RentalProperties.ToListAsync();
-            serviceResponse.Data = dbRentalProperties.Select(r => _mapper.Map<GetRentalPropertyDto>(r)).ToList();
-            return serviceResponse;
+            var dbRentalProperties = await _context.RentalProperties.OrderByDescending(r => r.RentalStart).Skip(skip).Take(_context.RentalProperties.Count()).ToListAsync();
+            var data = dbRentalProperties.Select(r => _mapper.Map<GetRentalPropertyDto>(r)).ToList();
+            var count = _context.RentalProperties.Count();
+
+            return new PaginationModel<List<GetRentalPropertyDto>>(data, count);
         }
 
         public async Task<ServiceResponse<GetRentalPropertyDto>> GetRentalPropertyById(int id)
@@ -43,9 +41,8 @@ namespace Rental_Property_Management_Tool.Services.RentalPropertyService
             var serviceResponse = new ServiceResponse<GetRentalPropertyDto>();
             var dbRentalProperties = await _context.RentalProperties.FirstOrDefaultAsync(r => r.Id == id);
             serviceResponse.Data = _mapper.Map<GetRentalPropertyDto>(dbRentalProperties);
+
             return serviceResponse;
-
-
         }
 
         public async Task<ServiceResponse<List<GetRentalPropertyDto>>> AddRentalProperty(AddRentalPropertyDto newRentalProperty)
@@ -55,6 +52,7 @@ namespace Rental_Property_Management_Tool.Services.RentalPropertyService
             _context.RentalProperties.Add(rentalProperty);
             await _context.SaveChangesAsync();
             serviceResponse.Data = await _context.RentalProperties.Select(r => _mapper.Map<GetRentalPropertyDto>(r)).ToListAsync();
+
             return serviceResponse;
 
         }
@@ -71,6 +69,7 @@ namespace Rental_Property_Management_Tool.Services.RentalPropertyService
                 rentalProperty.Type = updatedRentalProperty.Type;
                 rentalProperty.RentalStart = updatedRentalProperty.RentalStart;
                 rentalProperty.RentalEnd = updatedRentalProperty.RentalEnd;
+                rentalProperty.Rented = updatedRentalProperty.Rented;
 
                 await _context.SaveChangesAsync();
                 serviceResponse.Data = _mapper.Map<GetRentalPropertyDto>(rentalProperty);
@@ -94,7 +93,7 @@ namespace Rental_Property_Management_Tool.Services.RentalPropertyService
             try
             {
                 RentalProperty rentalProperty = await _context.RentalProperties.FirstOrDefaultAsync(r => r.Id == id);
-                _context.RentalProperties.Remove(rentalProperty);
+                rentalProperty.IsDeleted = true;
                 await _context.SaveChangesAsync();
                 serviceResponse.Data = _context.RentalProperties.Select(r => _mapper.Map<GetRentalPropertyDto>(r)).ToList();
             }
@@ -105,14 +104,14 @@ namespace Rental_Property_Management_Tool.Services.RentalPropertyService
             }
             return serviceResponse;
         }
-     public async Task<ServiceResponse<GetRentalPropertyAndPersonRentedDto>> RentPropertyToPerson(int rentalPropertyId, string personName)
+        public async Task<ServiceResponse<GetRentalPropertyAndPersonRentedDto>> RentPropertyToPerson(int rentalPropertyId, string personName)
         {
             var serviceResponse = new ServiceResponse<GetRentalPropertyAndPersonRentedDto>();
             try
             {
-                 Person person = await _context.Persons.FirstOrDefaultAsync(p => p.Name == personName);
-                
-                if(person.Name != personName)
+                Person person = await _context.Persons.FirstOrDefaultAsync(p => p.Name == personName);
+
+                if (person.Name != personName)
                 {
                     serviceResponse.Success = false;
                     serviceResponse.Message = "Person with given name does not exist.";
@@ -135,8 +134,5 @@ namespace Rental_Property_Management_Tool.Services.RentalPropertyService
                 return serviceResponse;
             }
         }
-
-     
     }
-
 }

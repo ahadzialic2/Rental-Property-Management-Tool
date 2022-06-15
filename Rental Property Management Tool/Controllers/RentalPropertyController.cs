@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Rental_Property_Management_Tool.Data;
 using Rental_Property_Management_Tool.Dtos.RentalProperty;
@@ -9,6 +10,7 @@ using Rental_Property_Management_Tool.Services;
 
 namespace Rental_Property_Management_Tool.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class RentalPropertyController : ControllerBase
@@ -21,9 +23,9 @@ namespace Rental_Property_Management_Tool.Controllers
             _context = context;
         }
         [HttpGet("GetAll")]
-        public async Task<ActionResult<ServiceResponse<List<GetRentalPropertyDto>>>> Get()
+        public async Task<ActionResult<ServiceResponse<List<GetRentalPropertyDto>>>> Get(int skip)
         {
-            return Ok(await _rentalPropertyService.GetAllRentalProperties());
+            return Ok(await _rentalPropertyService.GetAllRentalProperties(skip));
         }
       
         [HttpGet("{id}")]

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -14,13 +15,16 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Rental_Property_Management_Tool.Data;
 using Rental_Property_Management_Tool.Entities;
 using Rental_Property_Management_Tool.Services;
+using Rental_Property_Management_Tool.Services.AuthRepository;
 using Rental_Property_Management_Tool.Services.OverheadCostService;
 using Rental_Property_Management_Tool.Services.PersonService;
 using Rental_Property_Management_Tool.Services.RentalPropertyService;
+using Swashbuckle.AspNetCore.Filters;
 
 namespace Rental_Property_Management_Tool
 {
@@ -45,13 +49,32 @@ namespace Rental_Property_Management_Tool
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Rental_Property_Management_Tool", Version = "v1" });
+                c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                {
+                    Description = "Standard Authorization header using the Bearer scheme. Example:\"bearer {token}\"",
+                    In = ParameterLocation.Header,
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
+                });
+                c.OperationFilter<SecurityRequirementsOperationFilter>();
             });
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
            
             services.AddScoped<IRentalPropertyService, RentalPropertyService>();
             services.AddScoped<IPersonService, PersonService>();
             services.AddScoped<IOverheadCostService, OverheadCostService>();
-
+            services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(
+               options =>
+               {
+                   options.TokenValidationParameters = new TokenValidationParameters
+                   {
+                       ValidateIssuerSigningKey = true,
+                       IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
+                       ValidateIssuer = false,
+                       ValidateAudience = false
+                   };
+               });
             /*  services.AddMvc()
    .AddJsonOptions(o => {
        o.JsonSerializerOptions
@@ -72,7 +95,7 @@ namespace Rental_Property_Management_Tool
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
