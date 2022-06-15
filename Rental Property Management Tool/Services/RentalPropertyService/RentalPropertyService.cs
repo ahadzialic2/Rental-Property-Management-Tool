@@ -27,14 +27,17 @@ namespace Rental_Property_Management_Tool.Services.RentalPropertyService
         }
 
 
-        public async Task<PaginationModel<List<GetRentalPropertyDto>>> GetAllRentalProperties(int skip)
+        public async Task<ServiceResponse<List<GetRentalPropertyDto>>> GetAllRentalProperties(int? pageNumber, int? pageSize)
         {
-            var dbRentalProperties = await _context.RentalProperties.OrderByDescending(r => r.RentalStart).Skip(skip).Take(_context.RentalProperties.Count()).ToListAsync();
-            var data = dbRentalProperties.Select(r => _mapper.Map<GetRentalPropertyDto>(r)).ToList();
-            var count = _context.RentalProperties.Count();
-
-            return new PaginationModel<List<GetRentalPropertyDto>>(data, count);
+            var response = new ServiceResponse<List<GetRentalPropertyDto>>();
+            var dbRentalProperties = await _context.RentalProperties.Where(r => r.IsDeleted == false).ToListAsync();    
+            var currentPageNumber = pageNumber ?? 1;
+            var currentPageSize = pageSize ?? 10;
+            response.Data = dbRentalProperties.Skip((currentPageNumber - 1) * currentPageSize).Take(currentPageSize).Select(r => _mapper.Map<GetRentalPropertyDto>(r)).ToList();
+            return response;
         }
+
+   
 
         public async Task<ServiceResponse<GetRentalPropertyDto>> GetRentalPropertyById(int id)
         {
