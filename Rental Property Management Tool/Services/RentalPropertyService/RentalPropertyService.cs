@@ -27,10 +27,24 @@ namespace Rental_Property_Management_Tool.Services.RentalPropertyService
         }
 
 
-        public async Task<ServiceResponse<List<GetRentalPropertyDto>>> GetAllRentalProperties(int? pageNumber, int? pageSize)
+        public async Task<ServiceResponse<List<GetRentalPropertyDto>>> GetAllRentalProperties(int? pageNumber, int? pageSize, string? sortParametar)
         {
             var response = new ServiceResponse<List<GetRentalPropertyDto>>();
-            var dbRentalProperties = await _context.RentalProperties.Where(r => r.IsDeleted == false).ToListAsync();    
+            var dbRentalProperties = await _context.RentalProperties.Where(r => r.IsDeleted == false).ToListAsync();
+            if (sortParametar != null)
+            {
+                switch (sortParametar)
+                {
+                    case "RentalStart":
+                        dbRentalProperties = dbRentalProperties.OrderBy(q => q.RentalStart).ToList();
+                        break;
+                    case "RentalEnd":
+                        dbRentalProperties = dbRentalProperties.OrderBy(q => q.RentalEnd).ToList();
+                        break;
+                    default:
+                        break;
+                }
+            }
             var currentPageNumber = pageNumber ?? 1;
             var currentPageSize = pageSize ?? 10;
             response.Data = dbRentalProperties.Skip((currentPageNumber - 1) * currentPageSize).Take(currentPageSize).Select(r => _mapper.Map<GetRentalPropertyDto>(r)).ToList();
