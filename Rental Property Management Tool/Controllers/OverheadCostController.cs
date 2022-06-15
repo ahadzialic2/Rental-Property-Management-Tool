@@ -19,9 +19,9 @@ namespace Rental_Property_Management_Tool.Controllers
             _overheadCostService = overheadCostService;
         }
         [HttpGet("GetAll")]
-        public async Task<ActionResult<ServiceResponse<List<GetOverheadCostDto>>>> Get()
+        public async Task<ActionResult<ServiceResponse<List<GetOverheadCostDto>>>> Get(int? pageNumber, int? pageSize)
         {
-            return Ok(await _overheadCostService.GetAllOverheadCosts());
+            return Ok(await _overheadCostService.GetAllOverheadCosts(pageNumber,pageSize));
         }
         [HttpGet("{id}")]
         public async Task<ActionResult<ServiceResponse<GetOverheadCostDto>>> GetSingle(int id)

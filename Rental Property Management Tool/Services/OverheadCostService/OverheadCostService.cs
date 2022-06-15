@@ -54,9 +54,14 @@ namespace Rental_Property_Management_Tool.Services.OverheadCostService
             throw new System.NotImplementedException();
         }
 
-        public Task<ServiceResponse<List<GetOverheadCostDto>>> GetAllOverheadCosts()
+        public async Task<ServiceResponse<List<GetOverheadCostDto>>> GetAllOverheadCosts(int? pageNumber, int? pageSize)
         {
-            throw new System.NotImplementedException();
+            var serviceResponse = new ServiceResponse<List<GetOverheadCostDto>>();
+            var dbOverheadCosts = await _context.OverheadCosts.ToListAsync();
+            var currentPageNumber = pageNumber ?? 0;
+            var currentPageSize = pageSize ?? 0;
+            serviceResponse.Data = dbOverheadCosts.Skip((currentPageNumber - 1) * currentPageSize).Take(currentPageSize).Select(c => _mapper.Map<GetOverheadCostDto>(c)).ToList();
+            return serviceResponse;
         }
 
         public async Task<ServiceResponse<GetOverheadCostDto>> GetOverheadCostById(int id)
