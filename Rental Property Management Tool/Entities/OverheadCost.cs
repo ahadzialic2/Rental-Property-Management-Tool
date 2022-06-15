@@ -11,5 +11,6 @@ namespace Rental_Property_Management_Tool.Entities
         public string Currency { get; set; }
         public DateTime? Date { get; set; }
         public RentalProperty RentalProperty { get; set; }
+        public int RentalPropertyId { get; set; }
     }
 }

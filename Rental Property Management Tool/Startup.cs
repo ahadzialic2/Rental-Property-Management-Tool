@@ -18,6 +18,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Rental_Property_Management_Tool.Data;
+using Rental_Property_Management_Tool.Entities;
 using Rental_Property_Management_Tool.Services;
 using Rental_Property_Management_Tool.Services.AuthRepository;
 using Rental_Property_Management_Tool.Services.OverheadCostService;
@@ -73,8 +74,6 @@ namespace Rental_Property_Management_Tool
                        ValidateIssuer = false,
                        ValidateAudience = false
                    };
-
-
                });
             /*  services.AddMvc()
    .AddJsonOptions(o => {

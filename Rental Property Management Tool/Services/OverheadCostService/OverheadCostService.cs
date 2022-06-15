@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -20,16 +21,34 @@ namespace Rental_Property_Management_Tool.Services.OverheadCostService
             _mapper = mapper;
             _context = context;
         }
-        public async Task<ServiceResponse<List<GetOverheadCostDto>>> AddOverheadCost(AddOverheadCostDto newOverheadCost)
+        public async Task<ServiceResponse<GetOverheadCostDto>> AddOverheadCost(AddOverheadCostDto newOverheadCost, string propertyName)
         {
-            var serviceResponse = new ServiceResponse<List<GetOverheadCostDto>>();
-           OverheadCost overheadCost  = _mapper.Map<OverheadCost>(newOverheadCost);
-            _context.OverheadCosts.Add(overheadCost);
-            await _context.SaveChangesAsync();
-            serviceResponse.Data = await _context.OverheadCosts.Select(r => _mapper.Map<GetOverheadCostDto>(r)).ToListAsync();
-            return serviceResponse;
-        }
+            var serviceResponse = new ServiceResponse<GetOverheadCostDto>();
+            try
+            {
+                RentalProperty rentalProperty = await _context.RentalProperties.FirstOrDefaultAsync(rp => rp.Name == propertyName);
+                /*int id = rentalProperty.Id;
+                newOverheadCost.RentalPropertyId = id;*/
+                if (rentalProperty != null)
+                {
+                    OverheadCost overheadCost = _mapper.Map<OverheadCost>(newOverheadCost);
+                    _context.OverheadCosts.Add(overheadCost);
+                    await _context.SaveChangesAsync();
+                    serviceResponse.Success = true;
+                    serviceResponse.Data = _mapper.Map<GetOverheadCostDto>(overheadCost);
 
+                    return serviceResponse;
+                }
+                serviceResponse.Success = false;
+                return serviceResponse;
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = ex.Message;
+                return serviceResponse;
+            }
+        }
         public Task<ServiceResponse<List<GetOverheadCostDto>>> DeleteOverheadCost(int id)
         {
             throw new System.NotImplementedException();
