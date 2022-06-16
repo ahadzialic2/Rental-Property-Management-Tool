@@ -45,14 +45,13 @@ namespace Rental_Property_Management_Tool.Services.RentalPropertyService
                         break;
                 }
             }
+         
+
             var currentPageNumber = pageNumber ?? 1;
             var currentPageSize = pageSize ?? 10;
             response.Data = dbRentalProperties.Skip((currentPageNumber - 1) * currentPageSize).Take(currentPageSize).Select(r => _mapper.Map<GetRentalPropertyDto>(r)).ToList();
             return response;
         }
-
-   
-
         public async Task<ServiceResponse<GetRentalPropertyDto>> GetRentalPropertyById(int id)
         {
             var serviceResponse = new ServiceResponse<GetRentalPropertyDto>();
