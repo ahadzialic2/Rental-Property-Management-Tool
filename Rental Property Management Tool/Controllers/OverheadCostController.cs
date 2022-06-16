@@ -29,10 +29,10 @@ namespace Rental_Property_Management_Tool.Controllers
             return Ok(await _overheadCostService.GetOverheadCostById(id));
         }
 
-        [HttpPost("{propertyName}")]
-        public async Task<ActionResult<ServiceResponse<GetOverheadCostDto>>> AddOverheadCost(AddOverheadCostDto newOverheadCost, string propertyName)
+        [HttpPost("{propertyId}")]
+        public async Task<ActionResult<ServiceResponse<GetOverheadCostDto>>> AddOverheadCost(AddOverheadCostDto newOverheadCost, int propertyId)
         {
-            return Ok(await _overheadCostService.AddOverheadCost(newOverheadCost, propertyName));
+            return Ok(await _overheadCostService.AddOverheadCost(newOverheadCost, propertyId));
         }
 
         [HttpPut]

@@ -85,10 +85,13 @@ namespace Rental_Property_Management_Tool.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsRented")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PersonsId")
+                    b.Property<int?>("PersonId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("RentalEnd")
@@ -96,9 +99,6 @@ namespace Rental_Property_Management_Tool.Migrations
 
                     b.Property<DateTime?>("RentalStart")
                         .HasColumnType("datetime2");
-
-                    b.Property<bool>("Rented")
-                        .HasColumnType("bit");
 
                     b.Property<double>("SquaresMeters")
                         .HasColumnType("float");
@@ -111,7 +111,7 @@ namespace Rental_Property_Management_Tool.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PersonsId");
+                    b.HasIndex("PersonId");
 
                     b.HasIndex("UserId");
 
@@ -152,15 +152,15 @@ namespace Rental_Property_Management_Tool.Migrations
 
             modelBuilder.Entity("Rental_Property_Management_Tool.Entities.RentalProperty", b =>
                 {
-                    b.HasOne("Rental_Property_Management_Tool.Entities.Person", "Persons")
+                    b.HasOne("Rental_Property_Management_Tool.Entities.Person", "Person")
                         .WithMany("RentedProperties")
-                        .HasForeignKey("PersonsId");
+                        .HasForeignKey("PersonId");
 
                     b.HasOne("Rental_Property_Management_Tool.Entities.User", "User")
                         .WithMany("RentalProperties")
                         .HasForeignKey("UserId");
 
-                    b.Navigation("Persons");
+                    b.Navigation("Person");
 
                     b.Navigation("User");
                 });
