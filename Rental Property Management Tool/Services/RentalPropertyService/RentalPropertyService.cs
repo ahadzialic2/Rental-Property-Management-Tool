@@ -81,11 +81,11 @@ namespace Rental_Property_Management_Tool.Services.RentalPropertyService
                 rentalProperty.Name = updatedRentalProperty.Name;
                 rentalProperty.SquaresMeters = updatedRentalProperty.SquaresMeters;
                 rentalProperty.Address = updatedRentalProperty.Address;
-                rentalProperty.Rented = updatedRentalProperty.Rented;
+                rentalProperty.IsRented = updatedRentalProperty.IsRented;
                 rentalProperty.Type = updatedRentalProperty.Type;
                 rentalProperty.RentalStart = updatedRentalProperty.RentalStart;
                 rentalProperty.RentalEnd = updatedRentalProperty.RentalEnd;
-                rentalProperty.Rented = updatedRentalProperty.Rented;
+                rentalProperty.IsRented = updatedRentalProperty.IsRented;
 
                 await _context.SaveChangesAsync();
                 serviceResponse.Data = _mapper.Map<GetRentalPropertyDto>(rentalProperty);
@@ -135,9 +135,9 @@ namespace Rental_Property_Management_Tool.Services.RentalPropertyService
                 }
 
                 RentalProperty rentalProperty = await _context.RentalProperties
-                    .FirstOrDefaultAsync(rp => rp.Id == rentalPropertyId && rp.Rented == false);
-                rentalProperty.Persons = person;
-                rentalProperty.Rented = true;
+                    .FirstOrDefaultAsync(rp => rp.Id == rentalPropertyId && rp.IsRented == false);
+                rentalProperty.Person = person;
+                rentalProperty.IsRented = true;
                 await _context.SaveChangesAsync();
                 serviceResponse.Success = true;
                 serviceResponse.Data = _mapper.Map<GetRentalPropertyAndPersonRentedDto>(rentalProperty);
