@@ -47,20 +47,20 @@ namespace Rental_Property_Management_Tool.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SquaresMeters = table.Column<double>(type: "float", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Rented = table.Column<bool>(type: "bit", nullable: false),
+                    IsRented = table.Column<bool>(type: "bit", nullable: false),
                     Type = table.Column<int>(type: "int", nullable: false),
                     RentalStart = table.Column<DateTime>(type: "datetime2", nullable: true),
                     RentalEnd = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UserId = table.Column<int>(type: "int", nullable: true),
-                    PersonsId = table.Column<int>(type: "int", nullable: true),
+                    PersonId = table.Column<int>(type: "int", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_RentalProperties", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_RentalProperties_Persons_PersonsId",
-                        column: x => x.PersonsId,
+                        name: "FK_RentalProperties_Persons_PersonId",
+                        column: x => x.PersonId,
                         principalTable: "Persons",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -101,9 +101,9 @@ namespace Rental_Property_Management_Tool.Migrations
                 column: "RentalPropertyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RentalProperties_PersonsId",
+                name: "IX_RentalProperties_PersonId",
                 table: "RentalProperties",
-                column: "PersonsId");
+                column: "PersonId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RentalProperties_UserId",
