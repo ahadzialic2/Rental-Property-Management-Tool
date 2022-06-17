@@ -27,10 +27,15 @@ namespace Rental_Property_Management_Tool.Services.RentalPropertyService
         }
 
 
-        public async Task<ServiceResponse<List<GetRentalPropertyDto>>> GetAllRentalProperties(int? pageNumber, int? pageSize, string? sortParametar)
+        public async Task<ServiceResponse<List<GetRentalPropertyDto>>> GetAllRentalProperties(int? pageNumber, int? pageSize, string? sortParametar, string? searchQuery)
         {
             var response = new ServiceResponse<List<GetRentalPropertyDto>>();
             var dbRentalProperties = await _context.RentalProperties.Where(r => r.IsDeleted == false).ToListAsync();
+
+            if (searchQuery != null)
+                dbRentalProperties = dbRentalProperties.Where((p => p.Name.ToLower().Contains(searchQuery.ToLower())
+                || p.Name.ToLower().Contains(searchQuery.ToLower()))).ToList();
+
             if (sortParametar != null)
             {
                 switch (sortParametar)
