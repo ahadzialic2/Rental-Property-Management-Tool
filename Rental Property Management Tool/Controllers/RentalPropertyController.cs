@@ -16,11 +16,11 @@ namespace Rental_Property_Management_Tool.Controllers
     public class RentalPropertyController : ControllerBase
     {
         private readonly IRentalPropertyService _rentalPropertyService;
-        private readonly DataContext _context;
+        
         public RentalPropertyController(IRentalPropertyService rentalPropertyService, DataContext context)
         {
             _rentalPropertyService = rentalPropertyService;
-            _context = context;
+            
         }
         [HttpGet("GetAll")]
         public async Task<ActionResult<ServiceResponse<List<GetRentalPropertyDto>>>> Get(int? pageNumber, int? pageSize, string? sortParametar, string? searchQuery)
