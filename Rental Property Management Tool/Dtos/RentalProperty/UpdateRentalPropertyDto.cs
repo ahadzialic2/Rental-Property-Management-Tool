@@ -16,6 +16,6 @@ namespace Rental_Property_Management_Tool.Dtos.RentalProperty
         public TypesOfRentalProperty Type { get; set; }
         public DateTime? RentalStart { get; set; }
         public DateTime? RentalEnd { get; set; }
-        public GetPersonDto Person { get; set; }
+        //public GetPersonDto Person { get; set; }
     }
 }

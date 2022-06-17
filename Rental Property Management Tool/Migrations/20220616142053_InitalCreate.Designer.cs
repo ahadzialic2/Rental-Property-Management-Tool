@@ -10,8 +10,8 @@ using Rental_Property_Management_Tool.Data;
 namespace Rental_Property_Management_Tool.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220616123806_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20220616142053_InitalCreate")]
+    partial class InitalCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
