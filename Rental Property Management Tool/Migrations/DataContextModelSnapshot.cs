@@ -38,7 +38,7 @@ namespace Rental_Property_Management_Tool.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RentalPropertyId")
+                    b.Property<int?>("RentalPropertyId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -143,9 +143,7 @@ namespace Rental_Property_Management_Tool.Migrations
                 {
                     b.HasOne("Rental_Property_Management_Tool.Entities.RentalProperty", "RentalProperty")
                         .WithMany("Costs")
-                        .HasForeignKey("RentalPropertyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RentalPropertyId");
 
                     b.Navigation("RentalProperty");
                 });

@@ -75,6 +75,10 @@ namespace Rental_Property_Management_Tool
                        ValidateAudience = false
                    };
                });
+            services.AddControllersWithViews()
+    .AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
             /*  services.AddMvc()
    .AddJsonOptions(o => {
        o.JsonSerializerOptions
