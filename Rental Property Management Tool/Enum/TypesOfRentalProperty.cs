@@ -1,8 +1,10 @@
-﻿using System.Text.Json.Serialization;
+﻿
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Rental_Property_Management_Tool.Enum
 {
-    [JsonConverter(typeof(JsonStringEnumConverter))]
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum TypesOfRentalProperty
     {
         House,

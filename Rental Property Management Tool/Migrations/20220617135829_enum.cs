@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Rental_Property_Management_Tool.Migrations
 {
-    public partial class InitalCreate : Migration
+    public partial class @enum : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -82,7 +82,7 @@ namespace Rental_Property_Management_Tool.Migrations
                     Amount = table.Column<double>(type: "float", nullable: false),
                     Currency = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    RentalPropertyId = table.Column<int>(type: "int", nullable: false)
+                    RentalPropertyId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -92,7 +92,7 @@ namespace Rental_Property_Management_Tool.Migrations
                         column: x => x.RentalPropertyId,
                         principalTable: "RentalProperties",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(

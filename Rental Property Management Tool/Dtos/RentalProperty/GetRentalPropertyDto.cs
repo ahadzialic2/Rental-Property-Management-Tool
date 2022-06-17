@@ -13,7 +13,7 @@ namespace Rental_Property_Management_Tool.Dtos.RentalProperty
         public double SquaresMeters { get; set; }
         public string Address { get; set; }
         public bool IsRented { get; set; }
-        public TypesOfRentalProperty Type { get; set; }
+        public TypesOfRentalProperty Type { get; set; } = TypesOfRentalProperty.House;
         public DateTime? RentalStart { get; set; }
         public DateTime? RentalEnd { get; set; }
         public List<GetOverheadCostDto> Costs { get; set; }

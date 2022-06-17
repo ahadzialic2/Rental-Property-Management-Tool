@@ -10,11 +10,11 @@ namespace Rental_Property_Management_Tool
     {
         public AutoMapperProfile()
         {
-            CreateMap<RentalProperty, GetRentalPropertyDto>();
-            CreateMap<RentalProperty, GetRentalPropertyAndPersonRentedDto>();
-            CreateMap<AddRentalPropertyDto, RentalProperty>();
-            CreateMap<Person, GetPersonDto>();
-            CreateMap<GetPersonDto, Person>();
+            CreateMap<RentalProperty, GetRentalPropertyDto>().ReverseMap();
+            CreateMap<RentalProperty, GetRentalPropertyAndPersonRentedDto>().ReverseMap();
+            CreateMap<AddRentalPropertyDto, RentalProperty>().ReverseMap();
+            CreateMap<Person, GetPersonDto>().ReverseMap();
+            CreateMap<GetPersonDto, Person>().ReverseMap();
             CreateMap<AddPersonDto,Person>();
             CreateMap<OverheadCost, AddOverheadCostDto> ();
             CreateMap<AddOverheadCostDto, OverheadCost>();

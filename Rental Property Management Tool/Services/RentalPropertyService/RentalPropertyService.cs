@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Rental_Property_Management_Tool.Data;
 using Rental_Property_Management_Tool.Dtos.RentalProperty;
 using Rental_Property_Management_Tool.Entities;
-using Rental_Property_Management_Tool.Helper;
 using Rental_Property_Management_Tool.ServiceResponse;
 using System;
 using System.Collections.Generic;
@@ -54,7 +53,7 @@ namespace Rental_Property_Management_Tool.Services.RentalPropertyService
 
             var currentPageNumber = pageNumber ?? 1;
             var currentPageSize = pageSize ?? 10;
-            response.Data = dbRentalProperties.Skip((currentPageNumber - 1) * currentPageSize).Take(currentPageSize).Select(r => _mapper.Map<GetRentalPropertyDto>(r)).ToList();
+            response.Data =_mapper.Map<List<GetRentalPropertyDto>>(dbRentalProperties.Skip((currentPageNumber - 1) * currentPageSize).Take(currentPageSize).ToList());
             return response;
         }
         public async Task<ServiceResponse<GetRentalPropertyDto>> GetRentalPropertyById(int id)

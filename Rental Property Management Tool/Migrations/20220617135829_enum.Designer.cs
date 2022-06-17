@@ -10,8 +10,8 @@ using Rental_Property_Management_Tool.Data;
 namespace Rental_Property_Management_Tool.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220616142053_InitalCreate")]
-    partial class InitalCreate
+    [Migration("20220617135829_enum")]
+    partial class @enum
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -40,7 +40,7 @@ namespace Rental_Property_Management_Tool.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RentalPropertyId")
+                    b.Property<int?>("RentalPropertyId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -145,9 +145,7 @@ namespace Rental_Property_Management_Tool.Migrations
                 {
                     b.HasOne("Rental_Property_Management_Tool.Entities.RentalProperty", "RentalProperty")
                         .WithMany("Costs")
-                        .HasForeignKey("RentalPropertyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RentalPropertyId");
 
                     b.Navigation("RentalProperty");
                 });
