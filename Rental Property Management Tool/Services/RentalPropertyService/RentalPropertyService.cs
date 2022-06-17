@@ -60,7 +60,7 @@ namespace Rental_Property_Management_Tool.Services.RentalPropertyService
         public async Task<ServiceResponse<GetRentalPropertyDto>> GetRentalPropertyById(int id)
         {
             var serviceResponse = new ServiceResponse<GetRentalPropertyDto>();
-            var dbRentalProperties = await _context.RentalProperties.FirstOrDefaultAsync(r => r.Id == id);
+            var dbRentalProperties = await _context.RentalProperties.Include(x=>x.Costs).Include(x=>x.Person).FirstOrDefaultAsync(r => r.Id == id);
             serviceResponse.Data = _mapper.Map<GetRentalPropertyDto>(dbRentalProperties);
 
             return serviceResponse;
