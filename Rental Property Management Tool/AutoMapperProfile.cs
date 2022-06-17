@@ -19,6 +19,8 @@ namespace Rental_Property_Management_Tool
             CreateMap<OverheadCost, AddOverheadCostDto> ();
             CreateMap<AddOverheadCostDto, OverheadCost>();
             CreateMap<OverheadCost, GetOverheadCostDto>();
+            CreateMap<GetOverheadCostDto, OverheadCost>();
+
         }
     }
 }

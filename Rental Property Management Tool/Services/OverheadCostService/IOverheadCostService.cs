@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Rental_Property_Management_Tool.Dtos.OverheadCost;
+using Rental_Property_Management_Tool.Dtos.RentalProperty;
 using Rental_Property_Management_Tool.ServiceResponse;
 
 namespace Rental_Property_Management_Tool.Services.OverheadCostService
