@@ -7,6 +7,6 @@ This application allows user to login and add rental properties. All rental prop
 # Usage
 When you first start the application it will seed the database with rental properties,persons and overhead costs.
 # Technologies
-.NET CORE 5, Entity Framework with Microsoft SQL Server Express and JWT for authentication.
+.NET CORE 5, Microsoft SQL Server  and JWT for authentication.
 # Requirements
 You will need .NET 5, Microsoft SQL Server Express installed on your local machine as application back-end will use IIS and MS SQL Server.
