@@ -49,10 +49,10 @@ namespace Rental_Property_Management_Tool.Controllers
             }
             return Ok(response);
         }
-        [HttpPut("{rentalPropertyId}/{personName}")]
-        public async Task<ActionResult<ServiceResponse<GetRentalPropertyDto>>> RentPropertyToPerson(int rentalPropertyId, string personName)
+        [HttpPut("{rentalPropertyId}/{personId}")]
+        public async Task<ActionResult<ServiceResponse<GetRentalPropertyDto>>> RentPropertyToPerson(int rentalPropertyId, int personId)
         {
-            var response = await _rentalPropertyService.RentPropertyToPerson(rentalPropertyId, personName);
+            var response = await _rentalPropertyService.RentPropertyToPerson(rentalPropertyId, personId);
             if (response.Data == null)
             {
                 return NotFound(response);

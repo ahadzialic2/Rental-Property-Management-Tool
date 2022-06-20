@@ -12,7 +12,7 @@ namespace Rental_Property_Management_Tool.Services
         Task<ServiceResponse<List<GetRentalPropertyDto>>> AddRentalProperty(AddRentalPropertyDto newRentalProperty);
         Task<ServiceResponse<GetRentalPropertyDto>> UpdateRentalProperty(UpdateRentalPropertyDto updatedRentalProperty);
         Task<ServiceResponse<List<GetRentalPropertyDto>>> DeleteRentalProperty(int id);
-        Task<ServiceResponse<GetRentalPropertyAndPersonRentedDto>> RentPropertyToPerson(int rentalPropertyId, string personName);
+        Task<ServiceResponse<GetRentalPropertyAndPersonRentedDto>> RentPropertyToPerson(int rentalPropertyId, int personId);
 
     }
 }
