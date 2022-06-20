@@ -124,14 +124,14 @@ namespace Rental_Property_Management_Tool.Services.RentalPropertyService
             }
             return serviceResponse;
         }
-        public async Task<ServiceResponse<GetRentalPropertyAndPersonRentedDto>> RentPropertyToPerson(int rentalPropertyId, string personName)
+        public async Task<ServiceResponse<GetRentalPropertyAndPersonRentedDto>> RentPropertyToPerson(int rentalPropertyId, int personId)
         {
             var serviceResponse = new ServiceResponse<GetRentalPropertyAndPersonRentedDto>();
             try
             {
-                Person person = await _context.Persons.FirstOrDefaultAsync(p => p.Name == personName);
+                Person person = await _context.Persons.FirstOrDefaultAsync(p => p.Id == personId);
 
-                if (person.Name != personName)
+                if (person.Id != personId)
                 {
                     serviceResponse.Success = false;
                     serviceResponse.Message = "Person with given name does not exist.";
