@@ -54,11 +54,11 @@ namespace Rental_Property_Management_Tool.Services.PersonService
             serviceResponse.Data = dbPersons.Select(p => _mapper.Map<GetPersonDto>(p)).ToList();
             return serviceResponse;
         }
-        public async Task<ServiceResponse<GetPersonDto>> GetPersonById(int id)
+        public async Task<ServiceResponse<GetPersonBasicDto>> GetPersonById(int id)
         {
-            var serviceResponse = new ServiceResponse<GetPersonDto>();
-            var dbPersons = await _context.Persons.FirstOrDefaultAsync(p => p.Id == id);
-            serviceResponse.Data = _mapper.Map<GetPersonDto>(dbPersons);
+            var serviceResponse = new ServiceResponse<GetPersonBasicDto>();
+            var dbPersons = await _context.Persons.Include(x => x.RentedProperties).FirstOrDefaultAsync(p => p.Id == id);
+            serviceResponse.Data = _mapper.Map<GetPersonBasicDto>(dbPersons);
             return serviceResponse;
         }
         public async Task<ServiceResponse<GetPersonDto>> UpdatePerson(UpdatePersonDto updatedPerson)

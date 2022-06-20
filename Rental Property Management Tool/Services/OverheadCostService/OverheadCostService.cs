@@ -71,7 +71,7 @@ namespace Rental_Property_Management_Tool.Services.OverheadCostService
         public async Task<ServiceResponse<GetOverheadCostDto>> GetOverheadCostById(int id)
         {
             var serviceResponse = new ServiceResponse<GetOverheadCostDto>();
-            var dbOverheadCosts = await _context.OverheadCosts.FirstOrDefaultAsync(c => c.Id == id);
+            var dbOverheadCosts = await _context.OverheadCosts.Include(x => x.RentalProperty).FirstOrDefaultAsync(c => c.Id == id);
             serviceResponse.Data = _mapper.Map<GetOverheadCostDto>(dbOverheadCosts);
             return serviceResponse;
         }

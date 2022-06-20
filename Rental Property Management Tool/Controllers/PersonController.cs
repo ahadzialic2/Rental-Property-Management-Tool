@@ -24,7 +24,7 @@ namespace Rental_Property_Management_Tool.Controllers
             return Ok(await _personService.GetAllPersons());
         }
         [HttpGet("{id}")]
-        public async Task<ActionResult<ServiceResponse<GetPersonDto>>> GetSingle(int id)
+        public async Task<ActionResult<ServiceResponse<GetPersonBasicDto>>> GetSingle(int id)
         {
             return Ok(await _personService.GetPersonById(id));
         }
